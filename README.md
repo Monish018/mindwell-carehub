@@ -1,73 +1,97 @@
 # MindWell CareHub
 
-## Project info
+MindWell CareHub is a full-stack mental-wellness platform that connects patients with therapists and provides role-based dashboards for patients, therapists, and administrators.
 
-**URL**: https://lovable.dev/projects/33659771-87c4-492f-a7ea-e83b36ba6869
+## Highlights
 
-## How can I edit this code?
+- Role-based access for patients, therapists, and administrators
+- Secure registration and sign-in with JWT authentication
+- Password hashing with bcrypt
+- Patient appointment booking and status tracking
+- Therapist dashboard for managing assigned sessions
+- Admin dashboard with platform statistics
+- Therapist discovery, search, and seeded sample profiles
+- AI wellness chat with saved chat history for signed-in users
 
-There are several ways of editing your application.
+## Tech stack
 
-**Use Lovable**
+| Area | Technology |
+| --- | --- |
+| Frontend | React, TypeScript, Vite, Tailwind CSS, shadcn/ui |
+| Backend | Node.js, Express |
+| Database | MongoDB with Mongoose |
+| Authentication | JWT, bcryptjs, express-validator |
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/33659771-87c4-492f-a7ea-e83b36ba6869) and start prompting.
+## Local setup
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js 18+
+- MongoDB Community Server running locally
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 1. Install dependencies
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+npm install
+cd server
+npm install
 ```
 
-**Edit a file directly in GitHub**
+### 2. Configure environment variables
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Copy `server/.env.example` to `server/.env` and set a strong `JWT_SECRET`.
 
-**Use GitHub Codespaces**
+```env
+MONGO_URI=mongodb://127.0.0.1:27017/mindwell
+JWT_SECRET=replace-with-a-long-random-secret
+PORT=5001
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### 3. Seed therapist profiles
 
-## What technologies are used for this project?
+```bash
+cd server
+npm run seed
+```
 
-This project is built with:
+### 4. Run the app
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Start the API in one terminal:
 
-## How can I deploy this project?
+```bash
+cd server
+npm start
+```
 
-Simply open [Lovable](https://lovable.dev/projects/33659771-87c4-492f-a7ea-e83b36ba6869) and click on Share -> Publish.
+Start the frontend in a second terminal:
 
-## Can I connect a custom domain to my Lovable project?
+```bash
+npm run dev -- --port 5173
+```
 
-Yes, you can!
+Open `http://127.0.0.1:5173` in a browser.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Project structure
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+```text
+src/              React pages, components, authentication context, and API client
+server/           Express API, MongoDB models, routes, and middleware
+server/models/    User, Therapist, Appointment, and ChatMessage schemas
+server/routes/    Authentication, appointments, therapist, chat, and admin endpoints
+```
+
+## Security notes
+
+- Environment files are excluded from version control.
+- Passwords are hashed before they are stored.
+- JWTs are required for protected API routes.
+- Role checks are enforced by backend middleware.
+- The sample accounts and weak passwords used for local demonstration must be changed or removed before deployment.
+
+## Future improvements
+
+- Password reset and account verification
+- Production-grade AI provider integration
+- Therapist availability calendar and scheduling controls
+- Automated tests and CI pipeline
+- Deployment configuration and HTTPS
